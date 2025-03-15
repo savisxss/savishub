@@ -70,6 +70,95 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
+        /* Mobile menu styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--discord-text);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile navigation when active */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: var(--discord-dark);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            color: var(--discord-text);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            padding: 1rem 2rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            width: 80%;
+            text-align: center;
+        }
+        
+        .mobile-nav a:hover {
+            background-color: var(--discord-blue);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 140;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Open hamburger animation */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -227,12 +316,6 @@
             align-items: center;
         }
         
-        @media (max-width: 768px) {
-            .contact {
-                grid-template-columns: 1fr;
-            }
-        }
-        
         .contact-info {
             text-align: left;
         }
@@ -382,6 +465,78 @@
             background-color: var(--discord-blue);
             transform: scale(1.05);
         }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .contact {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tech-badge {
+                padding: 0.4rem 0.8rem;
+                margin: 0.3rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .service-card {
+                padding: 1.2rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .contact-link {
+                padding: 0.6rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -392,7 +547,20 @@
             <a href="#services">Services</a>
             <a href="#contact">Contact</a>
         </nav>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="overlay"></div>
 
     <div class="container">
         <section class="hero">
@@ -550,5 +718,39 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close mobile menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
 </body>
 </html>
