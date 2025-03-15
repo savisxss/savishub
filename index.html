@@ -397,6 +397,46 @@
             background-color: #3ca374;
         }
         
+        .submit-btn:disabled {
+            background-color: #2d7d59;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            min-height: 1.2rem;
+        }
+        
+        .form-status {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .status-success {
+            background-color: var(--discord-green);
+            color: white;
+            display: block;
+        }
+        
+        .status-error {
+            background-color: #e74c3c;
+            color: white;
+            display: block;
+        }
+        
+        .status-loading {
+            background-color: var(--discord-blue);
+            color: white;
+            display: block;
+        }
+        
         footer {
             background-color: var(--discord-darker);
             padding: 2rem;
@@ -685,20 +725,30 @@
                 </div>
                 
                 <div class="contact-form">
-                    <form>
+                    <form id="contactForm" action="https://formsubmit.co/savis.xss@gmail.com" method="POST">
+                        <!-- FormSubmit Configuration -->
+                        <input type="hidden" name="_subject" value="Nowa wiadomość z savisHub">
+                        <input type="hidden" name="_captcha" value="true">
+                        <input type="hidden" name="_next" value="https://savishub.com/thank-you">
+                        <input type="text" name="_honey" style="display:none">
+                        
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="Your name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required>
+                            <div class="error-message" id="nameError"></div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Your email">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Your email" required>
+                            <div class="error-message" id="emailError"></div>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" class="form-control" placeholder="Tell me about your project..."></textarea>
+                            <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+                            <div class="error-message" id="messageError"></div>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                        <div id="formStatus" class="form-status"></div>
                     </form>
                 </div>
             </div>
@@ -749,6 +799,88 @@
                 mobileNav.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+            });
+        });
+        
+        // Contact form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            
+            // Client-side validation before submitting to FormSubmit
+            function validateForm() {
+                let isValid = true;
+                
+                // Reset error messages
+                nameError.textContent = '';
+                emailError.textContent = '';
+                messageError.textContent = '';
+                
+                // Validate name
+                if (nameInput.value.trim() === '') {
+                    nameError.textContent = 'Please enter your name';
+                    isValid = false;
+                }
+                
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput.value.trim() === '') {
+                    emailError.textContent = 'Please enter your email';
+                    isValid = false;
+                } else if (!emailRegex.test(emailInput.value.trim())) {
+                    emailError.textContent = 'Please enter a valid email';
+                    isValid = false;
+                }
+                
+                // Validate message
+                if (messageInput.value.trim() === '') {
+                    messageError.textContent = 'Please enter your message';
+                    isValid = false;
+                } else if (messageInput.value.trim().length < 10) {
+                    messageError.textContent = 'Message must be at least 10 characters';
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                // Prevent default submission if validation fails
+                if (!validateForm()) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // If validation passes, FormSubmit will handle the submission
+                // No need to prevent default as we want the form to submit to FormSubmit
+            });
+            
+            // Live validation on input
+            nameInput.addEventListener('input', function() {
+                if (nameInput.value.trim() !== '') {
+                    nameError.textContent = '';
+                }
+            });
+            
+            emailInput.addEventListener('input', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput.value.trim() !== '') {
+                    if (emailRegex.test(emailInput.value.trim())) {
+                        emailError.textContent = '';
+                    }
+                }
+            });
+            
+            messageInput.addEventListener('input', function() {
+                if (messageInput.value.trim().length >= 10) {
+                    messageError.textContent = '';
+                }
             });
         });
     </script>
