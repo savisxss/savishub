@@ -3,886 +3,600 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>savisHub - Innovative Solutions</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --discord-bg: #23272A;
-            --discord-dark: #2C2F33;
-            --discord-darker: #202225;
-            --discord-light: #40444B;
-            --discord-blue: #5865F2;
-            --discord-blurple: #7289DA;
-            --discord-green: #43B581;
-            --discord-text: #FFFFFF;
-            --discord-text-muted: #99AAB5;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--discord-bg);
-            color: var(--discord-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        header {
-            background-color: var(--discord-blue);
-            padding: 1.5rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            letter-spacing: 1px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .nav-links a {
-            color: var(--discord-text);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-        
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Mobile menu styles */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 200;
-        }
-        
-        .hamburger span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: var(--discord-text);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Mobile navigation when active */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 70%;
-            height: 100vh;
-            background-color: var(--discord-dark);
-            z-index: 150;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: right 0.3s ease;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .mobile-nav.active {
-            right: 0;
-        }
-        
-        .mobile-nav a {
-            color: var(--discord-text);
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 500;
-            padding: 1rem 2rem;
-            margin: 0.5rem 0;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            width: 80%;
-            text-align: center;
-        }
-        
-        .mobile-nav a:hover {
-            background-color: var(--discord-blue);
-        }
-        
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 140;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Open hamburger animation */
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-        }
-        
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 4rem 1rem;
-            background-color: var(--discord-darker);
-            border-radius: 12px;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(88, 101, 242, 0.3), rgba(114, 137, 218, 0.1));
-            z-index: 0;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--discord-blue), var(--discord-blurple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin-bottom: 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--discord-blue);
-            color: var(--discord-text);
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn:hover {
-            background-color: #4752c4;
-            transform: translateY(-2px);
-        }
-        
-        .section {
-            background: var(--discord-dark);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 2.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .section-header {
-            position: relative;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            text-align: center;
-        }
-        
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--discord-blue);
-            border-radius: 3px;
-        }
-        
-        .section-header h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .service-card {
-            background: var(--discord-light);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            background-color: var(--discord-blue);
-        }
-        
-        .service-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .service-card ul {
-            list-style: none;
-            padding-left: 1rem;
-        }
-        
-        .service-card li {
-            padding: 0.5rem 0;
-            position: relative;
-        }
-        
-        .service-card li::before {
-            content: '→';
-            position: absolute;
-            left: -1rem;
-            color: var(--discord-blurple);
-        }
-        
-        .contact {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .contact-info {
-            text-align: left;
-        }
-        
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background-color: var(--discord-light);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--discord-text);
-            font-weight: 500;
-            transition: background-color 0.2s, transform 0.2s;
-        }
-        
-        .contact-link:hover {
-            background-color: var(--discord-blue);
-            transform: translateX(5px);
-        }
-        
-        .contact-form {
-            background-color: var(--discord-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--discord-dark);
-            background-color: var(--discord-darker);
-            color: var(--discord-text);
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--discord-blue);
-        }
-        
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .submit-btn {
-            background-color: var(--discord-green);
-            border: none;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-        
-        .submit-btn:hover {
-            background-color: #3ca374;
-        }
-        
-        .submit-btn:disabled {
-            background-color: #2d7d59;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-            min-height: 1.2rem;
-        }
-        
-        .form-status {
-            margin-top: 1rem;
-            padding: 0.75rem;
-            border-radius: 4px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
-        }
-        
-        .status-success {
-            background-color: var(--discord-green);
-            color: white;
-            display: block;
-        }
-        
-        .status-error {
-            background-color: #e74c3c;
-            color: white;
-            display: block;
-        }
-        
-        .status-loading {
-            background-color: var(--discord-blue);
-            color: white;
-            display: block;
-        }
-        
-        footer {
-            background-color: var(--discord-darker);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-        
-        .footer-links a {
-            color: var(--discord-text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--discord-text);
-        }
-        
-        .copyright {
-            color: var(--discord-text-muted);
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
-        
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .section {
-            animation: fadeIn 0.8s ease forwards;
-        }
-        
-        .section:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .section:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        /* Tech badges */
-        .tech-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            background-color: var(--discord-darker);
-            border-radius: 20px;
-            font-weight: 500;
-            transition: transform 0.2s, background-color 0.2s;
-        }
-        
-        .tech-badge:hover {
-            background-color: var(--discord-blue);
-            transform: scale(1.05);
-        }
-        
-        /* Mobile responsive adjustments */
-        @media (max-width: 768px) {
-            .contact {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section {
-                padding: 1.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 2rem 1rem;
-            }
-            
-            .hero {
-                padding: 3rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .tech-badge {
-                padding: 0.4rem 0.8rem;
-                margin: 0.3rem;
-                font-size: 0.9rem;
-            }
-            
-            .section-header h2 {
-                font-size: 1.5rem;
-            }
-            
-            .service-card {
-                padding: 1.2rem;
-            }
-            
-            .service-card h3 {
-                font-size: 1.2rem;
-            }
-            
-            .contact-link {
-                padding: 0.6rem;
-            }
-        }
-    </style>
+    <meta name="description" content="savisHub - Professional software development services. Expert in C#, JavaScript, TypeScript, Python, and Lua development.">
+    <meta name="keywords" content="software development, web development, C#, JavaScript, TypeScript, Python, Lua, React, Node.js">
+    <meta name="author" content="savisHub">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="savisHub - Innovative Software Solutions">
+    <meta property="og:description" content="Building modern applications with cutting-edge technologies tailored for your needs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://savishub.com">
+    
+    <title>savisHub - Innovative Software Solutions</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./styles.css" as="style">
+    <link rel="preload" href="./script.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    
+    <!-- Font loading with display swap for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="logo">savisHub</div>
-        <nav class="nav-links">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">savisHub</div>
+            <div class="loading-spinner"></div>
         </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="#home" class="logo">savisHub</a>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-section="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link" data-section="services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#technologies" class="nav-link" data-section="technologies">Tech Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+        </nav>
     </header>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </div>
-    <div class="overlay"></div>
-
-    <div class="container">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Innovative Software Solutions</h1>
-                <p>Building modern applications with cutting-edge technologies tailored for your needs.</p>
-                <a href="#contact" class="btn">Get in Touch</a>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-background">
+                <div class="hero-particles" id="heroParticles"></div>
+                <div class="hero-gradient"></div>
             </div>
-        </section>
-
-        <section id="about" class="section">
-            <div class="section-header">
-                <h2>About Me</h2>
-            </div>
-            <p>I'm a passionate developer focused on creating innovative software solutions that help businesses and individuals thrive in the digital landscape. With expertise across multiple programming languages and frameworks, I deliver high-quality applications that combine performance, reliability, and modern design.</p>
-        </section>
-
-        <section id="services" class="section">
-            <div class="section-header">
-                <h2>Services & Technologies</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>C# Development</h3>
-                    <ul>
-                        <li>.NET 8 Applications</li>
-                        <li>ASP.NET Core Web APIs</li>
-                        <li>Blazor Web Apps</li>
-                        <li>Desktop Applications</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>JavaScript Ecosystem</h3>
-                    <ul>
-                        <li>React Applications</li>
-                        <li>Next.js Websites</li>
-                        <li>Node.js Backend</li>
-                        <li>Deno Solutions</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>TypeScript Development</h3>
-                    <ul>
-                        <li>NestJS APIs</li>
-                        <li>tRPC End-to-End Type Safety</li>
-                        <li>Astro Static Sites</li>
-                        <li>Full-Stack Solutions</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Python Solutions</h3>
-                    <ul>
-                        <li>FastAPI Web Services</li>
-                        <li>Django Applications</li>
-                        <li>PyTorch ML Models</li>
-                        <li>TensorFlow AI Solutions</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Lua Programming</h3>
-                    <ul>
-                        <li>FiveM Development</li>
-                        <li>OpenResty Applications</li>
-                        <li>LÖVE Game Development</li>
-                        <li>Embedded Scripting</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Custom Solutions</h3>
-                    <ul>
-                        <li>API Integrations</li>
-                        <li>Database Design</li>
-                        <li>Cloud Deployment</li>
-                        <li>Performance Optimization</li>
-                    </ul>
+            
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="title-line animate-title">Innovative</span>
+                            <span class="title-line animate-title">Software</span>
+                            <span class="title-line animate-title highlight">Solutions</span>
+                        </h1>
+                        <p class="hero-description animate-text">
+                            Building modern applications with cutting-edge technologies 
+                            tailored for your unique business needs.
+                        </p>
+                        <div class="hero-cta animate-cta">
+                            <a href="#contact" class="btn btn-primary">
+                                <span>Get Started</span>
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                            <a href="#services" class="btn btn-secondary">
+                                View Services
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="code-preview animate-code">
+                            <div class="code-header">
+                                <div class="code-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <span class="code-title">savisHub.js</span>
+                            </div>
+                            <div class="code-content">
+                                <div class="code-line">
+                                    <span class="code-keyword">const</span>
+                                    <span class="code-variable"> solution</span>
+                                    <span class="code-operator"> = </span>
+                                    <span class="code-function">createInnovation</span>
+                                    <span class="code-bracket">(</span>
+                                </div>
+                                <div class="code-line">
+                                    <span class="code-indent">  </span>
+                                    <span class="code-property">technology</span>
+                                    <span class="code-operator">: </span>
+                                    <span class="code-string">'cutting-edge'</span>
+                                    <span class="code-comma">,</span>
+                                </div>
+                                <div class="code-line">
+                                    <span class="code-indent">  </span>
+                                    <span class="code-property">quality</span>
+                                    <span class="code-operator">: </span>
+                                    <span class="code-string">'premium'</span>
+                                    <span class="code-comma">,</span>
+                                </div>
+                                <div class="code-line">
+                                    <span class="code-indent">  </span>
+                                    <span class="code-property">delivery</span>
+                                    <span class="code-operator">: </span>
+                                    <span class="code-string">'on-time'</span>
+                                </div>
+                                <div class="code-line">
+                                    <span class="code-bracket">);</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div style="margin-top: 2rem; text-align: center;">
-                <p>Additional Skills & Tools:</p>
-                <div style="margin-top: 1rem;">
-                    <span class="tech-badge">Docker</span>
-                    <span class="tech-badge">Kubernetes</span>
-                    <span class="tech-badge">AWS</span>
-                    <span class="tech-badge">Azure</span>
-                    <span class="tech-badge">GraphQL</span>
-                    <span class="tech-badge">MongoDB</span>
-                    <span class="tech-badge">PostgreSQL</span>
-                    <span class="tech-badge">Redis</span>
-                    <span class="tech-badge">CI/CD</span>
-                    <span class="tech-badge">Tailwind CSS</span>
-                    <span class="tech-badge">Material UI</span>
-                    <span class="tech-badge">Microservices</span>
-                    <span class="tech-badge">RESTful APIs</span>
-                </div>
+            <div class="scroll-indicator">
+                <div class="scroll-arrow"></div>
             </div>
         </section>
 
-        <section id="contact" class="section">
-            <div class="section-header">
-                <h2>Contact</h2>
-            </div>
-            <div class="contact">
-                <div class="contact-info">
-                    <h3>Let's collaborate on something amazing!</h3>
-                    <p>Have a project in mind? Need technical expertise? I'm here to help you bring your ideas to life.</p>
-                    
-                    <div class="contact-links">
-                        <a href="https://discord.com/users/savisxss" target="_blank" class="contact-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.39-.444.885-.608 1.283a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.283.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                            </svg>
-                            Discord: savisxss
-                        </a>
-                        <a href="https://github.com/savisxss" target="_blank" class="contact-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                            </svg>
-                            GitHub: savisxss
-                        </a>
-                    </div>
+        <!-- About Section -->
+        <section id="about" class="about-section section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">About Me</span>
+                    <h2 class="section-title">Passionate Developer</h2>
+                    <p class="section-subtitle">
+                        Creating digital experiences that make a difference
+                    </p>
                 </div>
                 
-                <div class="contact-form">
-                    <form id="contactForm" action="https://formsubmit.co/savis.xss@gmail.com" method="POST">
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_subject" value="Nowa wiadomość z savisHub">
-                        <input type="hidden" name="_captcha" value="true">
-                        <input type="hidden" name="_next" value="https://savishub.com/thank-you">
-                        <input type="text" name="_honey" style="display:none">
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="about-description">
+                            I'm a passionate full-stack developer focused on creating innovative 
+                            software solutions that help businesses and individuals thrive in the 
+                            digital landscape. With expertise across multiple programming languages 
+                            and frameworks, I deliver high-quality applications that combine 
+                            performance, reliability, and modern design.
+                        </p>
                         
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required>
-                            <div class="error-message" id="nameError"></div>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="305">0</div>
+                                <div class="stat-label">Projects Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="7">0</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="10">0</div>
+                                <div class="stat-label">Technologies</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Your email" required>
-                            <div class="error-message" id="emailError"></div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <div class="skills-radar">
+                            <div class="radar-grid"></div>
+                            <div class="radar-skill" data-skill="Frontend" style="--angle: 0deg; --level: 90%"></div>
+                            <div class="radar-skill" data-skill="Backend" style="--angle: 72deg; --level: 85%"></div>
+                            <div class="radar-skill" data-skill="DevOps" style="--angle: 144deg; --level: 75%"></div>
+                            <div class="radar-skill" data-skill="Database" style="--angle: 216deg; --level: 80%"></div>
+                            <div class="radar-skill" data-skill="Mobile" style="--angle: 288deg; --level: 70%"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
-                            <div class="error-message" id="messageError"></div>
-                        </div>
-                        <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
-                        <div id="formStatus" class="form-status"></div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>
-    </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="logo" style="margin-bottom: 1rem;">savisHub</div>
-            <div class="footer-links">
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact</a>
+        <!-- Services Section -->
+        <section id="services" class="services-section section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Services</span>
+                    <h2 class="section-title">What I Offer</h2>
+                    <p class="section-subtitle">
+                        Comprehensive development services for your digital success
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card" data-service="web">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Web Development</h3>
+                        <p class="service-description">
+                            Modern, responsive websites and web applications built with 
+                            the latest technologies and best practices.
+                        </p>
+                        <ul class="service-features">
+                            <li>React & Next.js Applications</li>
+                            <li>ASP.NET Core Web APIs</li>
+                            <li>Blazor Web Apps</li>
+                            <li>Progressive Web Apps</li>
+                        </ul>
+                        <div class="service-overlay">
+                            <span class="service-number">01</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card" data-service="mobile">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                                <line x1="12" y1="18" x2="12.01" y2="18"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Backend Solutions</h3>
+                        <p class="service-description">
+                            Robust backend systems and APIs that power your applications 
+                            with scalability and security in mind.
+                        </p>
+                        <ul class="service-features">
+                            <li>.NET 8 Applications</li>
+                            <li>Node.js & NestJS APIs</li>
+                            <li>FastAPI & Django</li>
+                            <li>Microservices Architecture</li>
+                        </ul>
+                        <div class="service-overlay">
+                            <span class="service-number">02</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card" data-service="ai">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 12l2 2 4-4"/>
+                                <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                                <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                                <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
+                                <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">AI & ML Solutions</h3>
+                        <p class="service-description">
+                            Intelligent applications powered by machine learning and 
+                            artificial intelligence technologies.
+                        </p>
+                        <ul class="service-features">
+                            <li>PyTorch ML Models</li>
+                            <li>TensorFlow AI Solutions</li>
+                            <li>Natural Language Processing</li>
+                            <li>Computer Vision</li>
+                        </ul>
+                        <div class="service-overlay">
+                            <span class="service-number">03</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card" data-service="custom">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                <polyline points="2,17 12,22 22,17"/>
+                                <polyline points="2,12 12,17 22,12"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Custom Solutions</h3>
+                        <p class="service-description">
+                            Tailored software solutions designed specifically for your 
+                            unique business requirements and challenges.
+                        </p>
+                        <ul class="service-features">
+                            <li>API Integrations</li>
+                            <li>Database Design</li>
+                            <li>Cloud Deployment</li>
+                            <li>Performance Optimization</li>
+                        </ul>
+                        <div class="service-overlay">
+                            <span class="service-number">04</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 savisHub. All rights reserved.
+        </section>
+
+        <!-- Technologies Section -->
+        <section id="technologies" class="technologies-section section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Technologies</span>
+                    <h2 class="section-title">Tech Stack</h2>
+                    <p class="section-subtitle">
+                        Cutting-edge technologies for modern solutions
+                    </p>
+                </div>
+                
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Frontend</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item" data-tech="react">
+                                <div class="tech-icon">⚛️</div>
+                                <span class="tech-name">React</span>
+                            </div>
+                            <div class="tech-item" data-tech="nextjs">
+                                <div class="tech-icon">▲</div>
+                                <span class="tech-name">Next.js</span>
+                            </div>
+                            <div class="tech-item" data-tech="typescript">
+                                <div class="tech-icon">🔷</div>
+                                <span class="tech-name">TypeScript</span>
+                            </div>
+                            <div class="tech-item" data-tech="blazor">
+                                <div class="tech-icon">🔥</div>
+                                <span class="tech-name">Blazor</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Backend</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item" data-tech="csharp">
+                                <div class="tech-icon">🔵</div>
+                                <span class="tech-name">C#</span>
+                            </div>
+                            <div class="tech-item" data-tech="nodejs">
+                                <div class="tech-icon">🟢</div>
+                                <span class="tech-name">Node.js</span>
+                            </div>
+                            <div class="tech-item" data-tech="python">
+                                <div class="tech-icon">🐍</div>
+                                <span class="tech-name">Python</span>
+                            </div>
+                            <div class="tech-item" data-tech="lua">
+                                <div class="tech-icon">🌙</div>
+                                <span class="tech-name">Lua</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">Database & Cloud</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item" data-tech="postgresql">
+                                <div class="tech-icon">🐘</div>
+                                <span class="tech-name">PostgreSQL</span>
+                            </div>
+                            <div class="tech-item" data-tech="mongodb">
+                                <div class="tech-icon">🍃</div>
+                                <span class="tech-name">MongoDB</span>
+                            </div>
+                            <div class="tech-item" data-tech="aws">
+                                <div class="tech-icon">☁️</div>
+                                <span class="tech-name">AWS</span>
+                            </div>
+                            <div class="tech-item" data-tech="docker">
+                                <div class="tech-icon">🐳</div>
+                                <span class="tech-name">Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Contact</span>
+                    <h2 class="section-title">Let's Work Together</h2>
+                    <p class="section-subtitle">
+                        Ready to bring your ideas to life? Get in touch!
+                    </p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <h3 class="contact-card-title">Let's collaborate!</h3>
+                            <p class="contact-card-description">
+                                Have a project in mind? Need technical expertise? 
+                                I'm here to help you bring your ideas to life with 
+                                innovative solutions.
+                            </p>
+                            
+                            <div class="contact-methods">
+                                <a href="https://discord.com/users/savisxss" target="_blank" class="contact-method">
+                                    <div class="contact-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.39-.444.885-.608 1.283a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.283.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-method-info">
+                                        <span class="contact-method-label">Discord</span>
+                                        <span class="contact-method-value">savisxss</span>
+                                    </div>
+                                </a>
+                                
+                                <a href="https://github.com/savisxss" target="_blank" class="contact-method">
+                                    <div class="contact-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-method-info">
+                                        <span class="contact-method-label">GitHub</span>
+                                        <span class="contact-method-value">savisxss</span>
+                                    </div>
+                                </a>
+                                
+                                <a href="mailto:savis.xss@gmail.com" class="contact-method">
+                                    <div class="contact-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="contact-method-info">
+                                        <span class="contact-method-label">Email</span>
+                                        <span class="contact-method-value">savis.xss@gmail.com</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contactForm" action="https://formsubmit.co/savis.xss@gmail.com" method="POST">
+                            <!-- FormSubmit Configuration -->
+                            <input type="hidden" name="_subject" value="New message from savisHub">
+                            <input type="hidden" name="_captcha" value="true">
+                            <input type="hidden" name="_next" value="https://savisxss.github.io/savishub/thank-you.html">
+                            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+                            
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="form-input" 
+                                    placeholder="Your full name"
+                                    required
+                                    autocomplete="name"
+                                >
+                                <div class="form-error" id="nameError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input" 
+                                    placeholder="your.email@example.com"
+                                    required
+                                    autocomplete="email"
+                                >
+                                <div class="form-error" id="emailError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input 
+                                    type="text" 
+                                    id="subject" 
+                                    name="subject" 
+                                    class="form-input" 
+                                    placeholder="Project inquiry, collaboration, etc."
+                                    required
+                                >
+                                <div class="form-error" id="subjectError"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    class="form-textarea" 
+                                    placeholder="Tell me about your project, requirements, timeline, budget, or any questions you have..."
+                                    required
+                                    rows="6"
+                                ></textarea>
+                                <div class="form-error" id="messageError"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                                <span class="btn-text">Send Message</span>
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                                </svg>
+                            </button>
+                            
+                            <div id="formStatus" class="form-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">savisHub</div>
+                    <p class="footer-description">
+                        Building the future, one line of code at a time.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 class="footer-section-title">Navigation</h4>
+                        <ul class="footer-list">
+                            <li><a href="#about" class="footer-link">About</a></li>
+                            <li><a href="#services" class="footer-link">Services</a></li>
+                            <li><a href="#technologies" class="footer-link">Technologies</a></li>
+                            <li><a href="#contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4 class="footer-section-title">Services</h4>
+                        <ul class="footer-list">
+                            <li><a href="#services" class="footer-link">Web Development</a></li>
+                            <li><a href="#services" class="footer-link">Backend Solutions</a></li>
+                            <li><a href="#services" class="footer-link">AI & ML Solutions</a></li>
+                            <li><a href="#services" class="footer-link">Custom Solutions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4 class="footer-section-title">Connect</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://github.com/savisxss" target="_blank" class="footer-link">GitHub</a></li>
+                            <li><a href="https://discord.com/users/savisxss" target="_blank" class="footer-link">Discord</a></li>
+                            <li><a href="mailto:savis.xss@gmail.com" class="footer-link">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 savisHub. All rights reserved.</p>
+                </div>
+                <div class="footer-back-to-top">
+                    <button id="backToTop" class="back-to-top-btn" aria-label="Back to top">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M18 15L12 9L6 15"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Mobile menu functionality
-        const hamburger = document.querySelector('.hamburger');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const overlay = document.querySelector('.overlay');
-        const mobileLinks = document.querySelectorAll('.mobile-nav a');
-        
-        // Toggle mobile menu
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-        });
-        
-        // Close mobile menu when clicking overlay
-        overlay.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        // Close mobile menu when clicking a link
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileNav.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-        
-        // Contact form validation
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-            const nameError = document.getElementById('nameError');
-            const emailError = document.getElementById('emailError');
-            const messageError = document.getElementById('messageError');
-            
-            // Client-side validation before submitting to FormSubmit
-            function validateForm() {
-                let isValid = true;
-                
-                // Reset error messages
-                nameError.textContent = '';
-                emailError.textContent = '';
-                messageError.textContent = '';
-                
-                // Validate name
-                if (nameInput.value.trim() === '') {
-                    nameError.textContent = 'Please enter your name';
-                    isValid = false;
-                }
-                
-                // Validate email
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (emailInput.value.trim() === '') {
-                    emailError.textContent = 'Please enter your email';
-                    isValid = false;
-                } else if (!emailRegex.test(emailInput.value.trim())) {
-                    emailError.textContent = 'Please enter a valid email';
-                    isValid = false;
-                }
-                
-                // Validate message
-                if (messageInput.value.trim() === '') {
-                    messageError.textContent = 'Please enter your message';
-                    isValid = false;
-                } else if (messageInput.value.trim().length < 10) {
-                    messageError.textContent = 'Message must be at least 10 characters';
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
-            // Form submission
-            contactForm.addEventListener('submit', function(e) {
-                // Prevent default submission if validation fails
-                if (!validateForm()) {
-                    e.preventDefault();
-                    return false;
-                }
-                
-                // If validation passes, FormSubmit will handle the submission
-                // No need to prevent default as we want the form to submit to FormSubmit
-            });
-            
-            // Live validation on input
-            nameInput.addEventListener('input', function() {
-                if (nameInput.value.trim() !== '') {
-                    nameError.textContent = '';
-                }
-            });
-            
-            emailInput.addEventListener('input', function() {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (emailInput.value.trim() !== '') {
-                    if (emailRegex.test(emailInput.value.trim())) {
-                        emailError.textContent = '';
-                    }
-                }
-            });
-            
-            messageInput.addEventListener('input', function() {
-                if (messageInput.value.trim().length >= 10) {
-                    messageError.textContent = '';
-                }
-            });
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="./script.js"></script>
 </body>
 </html>

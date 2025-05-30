@@ -1,0 +1,76 @@
+{
+  "name": "savishub-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for savisHub - Modern software development services",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . --live",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "npx clean-css-cli -o styles.min.css styles.css",
+    "minify-js": "npx terser script.js -o script.min.js",
+    "lighthouse": "npx lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html",
+    "validate-html": "npx html-validate index.html",
+    "validate-css": "npx stylelint styles.css",
+    "format": "npx prettier --write *.html *.css *.js *.json *.md",
+    "deploy": "gh-pages -d .",
+    "test": "npm run validate-html && npm run validate-css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savisxss/savishub.git"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "developer",
+    "software",
+    "web-development",
+    "javascript",
+    "css",
+    "html",
+    "responsive",
+    "modern"
+  ],
+  "author": {
+    "name": "savisHub",
+    "email": "savis.xss@gmail.com",
+    "url": "https://savishub.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/savisxss/savishub/issues"
+  },
+  "homepage": "https://savisxss.github.io/savishub",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "gh-pages": "^6.1.1",
+    "html-validate": "^8.7.4",
+    "lighthouse": "^11.4.0",
+    "prettier": "^3.1.1",
+    "serve": "^14.2.1",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "terser": "^5.26.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "index.html",
+    "thank-you.html",
+    "styles.css",
+    "script.js",
+    "robots.txt",
+    "sitemap.xml",
+    "favicon.ico",
+    "assets/"
+  ]
+}

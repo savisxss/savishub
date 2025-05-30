@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thank you for contacting savisHub. Your message has been received successfully.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <title>Thank You - savisHub</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./styles.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    
+    <!-- Font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Additional styles for thank you page */
+        .thank-you-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thank-you-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .thank-you-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--space-2xl);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .thank-you-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-xl);
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+        
+        .thank-you-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+        
+        .thank-you-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--space-lg);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+        
+        .thank-you-message {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2xl);
+            line-height: 1.6;
+            animation: slideUp 0.8s ease-out 0.6s both;
+        }
+        
+        .thank-you-details {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            animation: slideUp 0.8s ease-out 0.8s both;
+        }
+        
+        .thank-you-details h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            font-size: 1.25rem;
+        }
+        
+        .thank-you-details p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .response-time {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            display: inline-block;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .thank-you-actions {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 0.8s ease-out 1s both;
+        }
+        
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary-600);
+            border-radius: 50%;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .thank-you-content {
+                padding: var(--space-lg);
+            }
+            
+            .thank-you-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="./index.html" class="logo">savisHub</a>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="./index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./index.html#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./index.html#technologies" class="nav-link">Tech Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="thank-you-section">
+            <div class="thank-you-background"></div>
+            <div class="floating-particles" id="floatingParticles"></div>
+            
+            <div class="container">
+                <div class="thank-you-content">
+                    <div class="thank-you-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    
+                    <h1 class="thank-you-title">Thank You!</h1>
+                    
+                    <p class="thank-you-message">
+                        Your message has been received successfully. I appreciate you taking the time to reach out and I'm excited about the possibility of working together.
+                    </p>
+                    
+                    <div class="thank-you-details">
+                        <h3>What happens next?</h3>
+                        <p>
+                            I personally review every message and will get back to you with a thoughtful response. 
+                            Here's what you can expect:
+                        </p>
+                        <div class="response-time">
+                            ⚡ Response within 24 hours
+                        </div>
+                    </div>
+                    
+                    <div class="thank-you-actions">
+                        <a href="./index.html" class="btn btn-primary">
+                            <span>Back to Home</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </a>
+                        
+                        <a href="./index.html#services" class="btn btn-secondary">
+                            View Services
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">savisHub</div>
+                    <p class="footer-description">
+                        Building the future, one line of code at a time.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 class="footer-section-title">Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="./index.html" class="footer-link">Home</a></li>
+                            <li><a href="./index.html#about" class="footer-link">About</a></li>
+                            <li><a href="./index.html#services" class="footer-link">Services</a></li>
+                            <li><a href="./index.html#contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4 class="footer-section-title">Connect</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://github.com/savisxss" target="_blank" class="footer-link">GitHub</a></li>
+                            <li><a href="https://discord.com/users/savisxss" target="_blank" class="footer-link">Discord</a></li>
+                            <li><a href="mailto:savis.xss@gmail.com" class="footer-link">Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 savisHub. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation script for thank you page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            createFloatingParticles();
+            
+            // Setup mobile menu (reuse from main script)
+            setupMobileMenu();
+            
+            // Auto redirect after 30 seconds (optional)
+            setTimeout(() => {
+                const redirectNotice = document.createElement('div');
+                redirectNotice.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: var(--bg-card);
+                    border: 1px solid var(--border-primary);
+                    padding: 15px;
+                    border-radius: 8px;
+                    color: var(--text-secondary);
+                    font-size: 14px;
+                    box-shadow: var(--shadow-lg);
+                    z-index: 1000;
+                `;
+                redirectNotice.innerHTML = 'Redirecting to home in 10 seconds...';
+                document.body.appendChild(redirectNotice);
+                
+                setTimeout(() => {
+                    window.location.href = './index.html';
+                }, 10000);
+            }, 30000);
+        });
+        
+        function createFloatingParticles() {
+            const container = document.getElementById('floatingParticles');
+            if (!container) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 6 + 2;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 8;
+                const duration = Math.random() * 4 + 6;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${left}%;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        function setupMobileMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (!hamburger || !navMenu) return;
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
